@@ -5,7 +5,9 @@
 <header class="home-header">
     <div class="d-flex align-items-center justify-content-between">
         <div class="logo">
+            <a href="{{route('home', $lang)}}">
             <img src="/css/filament/logo.png" alt="" style="width: 300px">
+            </a>
         </div>
         <ul class="link unstyled d-sm-flex d-none  align-items-center">
             <li>

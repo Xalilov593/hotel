@@ -3,10 +3,10 @@ $lang=app()->getLocale();
 $contact=\App\Models\Contact::where('lang', $lang)->first();
  @endphp
 <!-- Footer Section Start -->
-<footer class="footer" data-sal="slide-up" data-sal-duration="800" data-sal-delay="100" data-sal-easing="ease-in-out">
+<footer class="footer">
     <div class="container-fluid">
         <div class="content text-center">
-            <a href="" class="footer-logo">
+            <a href="{{ route('home', ['lang' => $lang]) }}" class="footer-logo">
                 <img src="/css/filament/logo.png" alt="">
             </a>
             <div class="content-detail">

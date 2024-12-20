@@ -211,7 +211,7 @@
                 <div class="sec-heading sec right text-end">
                     <div class="heading-content">
                         <p class="h-18 bold light-black text-uppercase">SUITES</p>
-                        <h2 class="h-69 light-black">Luxury Honeymoon Suites</h2>
+                        <h2 class="h-69 light-black">{{__('main.Rooms')}}</h2>
                     </div>
                     <div class="slider-arrow">
                         <button class="arrow prev-btn" data-slide="room-slider">
@@ -234,6 +234,7 @@
                 </div>
                 <div class="content">
                     <div class="room-slider sliders" data-parent="suite-room">
+                        @foreach($rooms as $room=>$value)
                         <div class="slide">
                             <div class="slide__img">
                                 <img class="room_image" src="./assets/media/card-image/couple-room.png"
@@ -245,31 +246,29 @@
                             </div>
                             <div class="slide__content">
                                 <div class="content-block animated faster" data-animation-in="fadeInUp">
-                                    <h2 class="h-53 light-black mb-16"><a href="room-detail.html">Grand Luxury
-                                            Room</a></h2>
+                                    <h2 class="h-53 light-black mb-16"><a href="room-detail.html">{{$value->title}}</a></h2>
                                     <div class="price-rating mb-32">
-                                        <p><span class="color-primary h-40">$360</span>
+                                        <p><span class="color-primary h-40">{{intval($value->price).' '. __('main.Sum')}}</span>
                                             <span class="light-bold light-black">/Night</span>
                                         </p>
                                         <p class="light-bold reviews-text"><i
                                                 class="fa-solid fa-star color-primary"></i> 4.9
                                             (93) REVIEWS</p>
                                     </div>
-                                    <p class="mb-32 reviews-text">Explore the intricacies of our journey, commitment to
-                                        hospitality, and the unique features that make Explore the intricacies
-                                        of our journey, commitment to hospitality, and the unique features.</p>
+                                    <p class="mb-32 reviews-text">{{$value->description}}</p>
+                                    @php
+                                        $icons = $value->types()->where('is_active', true)->latest()->take(3)->get();
+                                    @endphp
                                     <ul class="services unstyled mb-32">
-                                        <li><img src="./assets/media/icon/double-bed-icon.png" alt="">
-                                            <p class="h-18 bold light-black"> King Size Bed</p>
-                                        </li>
-                                        <li><img src="./assets/media/icon/tv-icon.png" alt="">
-                                            <p class="h-18 bold light-black"> 32 Inc TV</p>
-                                        </li>
-                                        <li><img src="./assets/media/icon/food-icon.png" alt="">
-                                            <p class="h-18 bold light-black"> Breakfast</p>
-                                        </li>
+                                        @foreach($icons as $icon)
+                                            <li>
+                                                <img src="{{$icon->getMedia('icon-image')->first()->getUrl()}}"
+                                                     alt="">
+                                                <p class="h-18 bold light-black">{{$icon->value_name}}</p>
+                                            </li>
+                                        @endforeach
                                     </ul>
-                                    <a href="booking.html" class="cus-btn">
+                                    <a href="{{route('room-detail', [$lang, $value->id])}}" class="cus-btn">
                                         <span>
                                             <samp class="text">Book Now</samp>
                                             <samp class="effect">Book Now</samp>
@@ -278,92 +277,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="slide">
-                            <div class="slide__img">
-                                <img class="room_image" src="./assets/media/card-image/family-room.png"
-                                     alt="">
-                                <img src="./assets/media/vector-shape/luxury-room-vec.png" alt=""
-                                     class="side_vector d-sm-block d-none">
-                                <img src="./assets/media/vector-shape/mobile-room.png" alt=""
-                                     class="side_vector_mobile d-sm-none d-block">
-
-                            </div>
-                            <div class="slide__content">
-                                <div class="content-block animated faster" data-animation-in="fadeInUp">
-                                    <h2 class="h-53 light-black mb-16"><a href="room-detail.html">Family Room</a></h2>
-                                    <div class="price-rating mb-32">
-                                        <p><span class="color-primary h-40">$380</span><span
-                                                class="light-bold light-black">/Night</span></p>
-                                        <p class="light-bold reviews-text"><i
-                                                class="fa-solid fa-star color-primary"></i> 4.9
-                                            (93) REVIEWS</p>
-                                    </div>
-                                    <p class="mb-32 reviews-text">Explore the intricacies of our journey, commitment to
-                                        hospitality, and the unique features that make Explore the intricacies
-                                        of our journey, commitment to hospitality, and the unique features.</p>
-                                    <ul class="services unstyled mb-32">
-                                        <li><img src="./assets/media/icon/double-bed-icon.png" alt="">
-                                            <p class="h-18 bold light-black"> King Size Bed</p>
-                                        </li>
-                                        <li><img src="./assets/media/icon/tv-icon.png" alt="">
-                                            <p class="h-18 bold light-black"> 32 Inc TV</p>
-                                        </li>
-                                        <li><img src="./assets/media/icon/food-icon.png" alt="">
-                                            <p class="h-18 bold light-black"> Breakfast</p>
-                                        </li>
-                                    </ul>
-                                    <a href="booking.html" class="cus-btn">
-                                        <span>
-                                            <samp class="text">Book Now</samp>
-                                            <samp class="effect">Book Now</samp>
-                                        </span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="slide">
-                            <div class="slide__img">
-                                <img class="room_image" src="./assets/media/card-image/deluxe-room.png"
-                                     alt="">
-                                <img src="./assets/media/vector-shape/luxury-room-vec.png" alt=""
-                                     class="side_vector d-sm-block d-none">
-                                <img src="./assets/media/vector-shape/mobile-room.png" alt=""
-                                     class="side_vector_mobile d-sm-none d-block">
-
-                            </div>
-                            <div class="slide__content">
-                                <div class="content-block animated faster" data-animation-in="fadeInUp">
-                                    <h2 class="h-53 light-black mb-16"><a href="room-detail.html">Deluxe Room</a></h2>
-                                    <div class="price-rating mb-32">
-                                        <p><span class="color-primary h-40">$430</span><span
-                                                class="light-bold light-black">/Night</span></p>
-                                        <p class="light-bold reviews-text"><i
-                                                class="fa-solid fa-star color-primary"></i> 4.9
-                                            (93) REVIEWS</p>
-                                    </div>
-                                    <p class="mb-32 reviews-text">Explore the intricacies of our journey, commitment to
-                                        hospitality, and the unique features that make Explore the intricacies
-                                        of our journey, commitment to hospitality, and the unique features.</p>
-                                    <ul class="services unstyled mb-32">
-                                        <li><img src="./assets/media/icon/double-bed-icon.png" alt="">
-                                            <p class="h-18 bold light-black"> King Size Bed</p>
-                                        </li>
-                                        <li><img src="./assets/media/icon/tv-icon.png" alt="">
-                                            <p class="h-18 bold light-black"> 32 Inc TV</p>
-                                        </li>
-                                        <li><img src="./assets/media/icon/food-icon.png" alt="">
-                                            <p class="h-18 bold light-black"> Breakfast</p>
-                                        </li>
-                                    </ul>
-                                    <a href="booking.html" class="cus-btn">
-                                        <span>
-                                            <samp class="text">Book Now</samp>
-                                            <samp class="effect">Book Now</samp>
-                                        </span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
                 <div class="bottom-shape text-end">
@@ -380,73 +294,10 @@
                 <div class="sec-heading sec-2 text-start">
                     <div class="heading-content">
                         <p class="h-18 bold light-black justify-content-start text-uppercase sec-text">Facilities</p>
-                        <h2 class="h-69 light-black local-activities">Local Activities</h2>
+                        <h2 class="h-69 light-black local-activities">{{__('main.Services')}}</h2>
                     </div>
                 </div>
                 <div class="content">
-                    <div class="row mb-48">
-                        <div class="col-md-4">
-                            <a href="restaurant.html">
-                                <div class="activitie-card">
-                                    <div class="intersect">
-                                        <img src="./assets/media/vector-shape/center-shape.png" class=""
-                                             alt="">
-                                    </div>
-                                    <div class="card-image">
-                                        <img src="./assets/media/card-image/image-8.png" alt="">
-                                    </div>
-                                    <div class="card-content">
-                                        <h5 class="h-31 mb-32 card-title">Restaurant</h5>
-                                        <p>Consistency is key, and this place nails it every time. Whether it's a
-                                            quick lunch or a late-night snack, the quality is consistently.</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-md-4">
-                            <a href="spa-relax.html">
-                                <div class="activitie-card sec">
-                                    <div class="intersect">
-                                        <img src="./assets/media/vector-shape/center-shape.png" class=""
-                                             alt="">
-                                    </div>
-                                    <div class="card-content d-sm-block d-none">
-                                        <h5 class="h-31 mb-32 card-title">Swimming Pool & SPA</h5>
-                                        <p>Lorem ipsum dolor sit amet consectetur. Nec vel arcu mi pulvinar egestas.
-                                            Libero ut nisi mauris sed.</p>
-                                    </div>
-                                    <div class="card-image">
-                                        <img src="./assets/media/card-image/image-9.png" alt="">
-                                        <img src="./assets/media/card-image/image-10.png" alt="">
-                                    </div>
-                                    <div class="card-content d-sm-none d-block">
-                                        <h5 class="h-31 mb-32 card-title">Swimming Pool & SPA</h5>
-                                        <p>Lorem ipsum dolor sit amet consectetur. Nec vel arcu mi pulvinar egestas.
-                                            Libero ut nisi mauris sed.</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-md-4">
-                            <a href="coming-soon.html">
-                                <div class="activitie-card right">
-                                    <div class="card-content d-sm-block d-none">
-                                        <h5 class="h-31 mb-32 card-title">Horse Ride</h5>
-                                        <p>Consistency is key, and this place nails it every time. Whether it's a
-                                            quick lunch or a late-night snack, the quality is consistently.</p>
-                                    </div>
-                                    <div class="card-image">
-                                        <img src="./assets/media/card-image/image-11.png" alt="">
-                                    </div>
-                                    <div class="card-content d-sm-none d-block">
-                                        <h5 class="h-31 mb-32 card-title">Horse Ride</h5>
-                                        <p>Consistency is key, and this place nails it every time. Whether it's a
-                                            quick lunch or a late-night snack, the quality is consistently.</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
                     <div class="amenities">
                         <div class="amenities-slider">
                             <div class="slider-slide top">
