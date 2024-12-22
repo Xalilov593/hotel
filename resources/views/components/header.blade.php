@@ -27,9 +27,6 @@
                    class="{{ request()->routeIs('blog') ? 'active' : ''}}">{{__('main.Services')}}</a>
 
             </li>
-            <li class="link-has-children">
-                <a href="" class="sub-menu">Pages</a>
-            </li>
             <li>
                 <a href="{{ route('contact', $lang)}}"
                    class="{{ request()->routeIs('contact') ? 'active' : ''}}">{{__('main.contact')}}</a>
@@ -118,7 +115,7 @@
                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         Chiqish
                     </a>
-                    <form id="logout-form" action="" method="POST" class="d-none">
+                    <form id="logout-form" action="{{route('logout', $lang)}}" method="POST" class="d-none">
                         @csrf
                     </form>
                 </div>

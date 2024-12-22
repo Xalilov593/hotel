@@ -2,6 +2,8 @@
 
 return [
     App\Providers\AppServiceProvider::class,
-    Spatie\Permission\PermissionServiceProvider::class,
+    App\Providers\FilamentServiceProvider::class,
     App\Providers\Filament\AdminPanelProvider::class,
+    Spatie\Permission\PermissionServiceProvider::class,
+
 ];

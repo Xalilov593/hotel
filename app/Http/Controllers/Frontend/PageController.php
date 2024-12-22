@@ -47,11 +47,13 @@ class PageController extends Controller
 
     public function booking()
     {
-        return view('frontend.booking');
+        $rooms=Room::all();
+        return view('frontend.booking', compact('rooms'));
     }
 
-    public function roomDetail()
+    public function roomDetail($lang, $id)
     {
-        return view('frontend.room-details');
+        $room=Room::findOrFail($id);
+        return view('frontend.room-details', compact('room', 'lang'));
     }
 }

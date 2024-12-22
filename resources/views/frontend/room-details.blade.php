@@ -50,86 +50,29 @@
                         <div class="col-xl-8">
                             <div class="room-content-wrapper">
                                 <div class="price-title mb-32">
-                                    <h3 class="h-53 light-black mb-16">Deluxe Room</h3>
-                                    <h5 class="h-40 color-primary">$360 <span class="h-18 light-black fw-500 font-sec">/Night</span></h5>
+                                    <h3 class="h-53 light-black mb-16">{{$room->title}}</h3>
+                                    <p><span class="color-primary h-40">{{intval($room->price).' '. __('main.Sum')}}</span>
+                                        <span class="light-bold light-black">/Night</span>
+                                    </p>
                                 </div>
-                                <p class="h-18 dark-gray font-sec mb-48">Lorem ipsum dolor sit amet consectetur. Bibendum felis scelerisque faucibus
-                                    ultrices sit varius non. Porttitor dignissim tortor ut sed. Turpis quisque
-                                    vitae diam fringilla odio orci. Odio convallis enim tristique neque duis
-                                    convallis. Amet quam tempus et in porttitor ut massa nulla. Velit sed vitae
-                                    ornare id aliquam tellus dolor elementum. Quis parturient id varius mi
-                                    bibendum in ut at quis.</p>
+                                <p class="h-18 dark-gray font-sec mb-48">{{$room->description}}</p>
+                                @php
+                                    $icons = $room->types()->get();
 
+                                @endphp
                                 <div class="room-amenities mb-48">
-                                    <h4 class="h-40 light-black mb-32">Amenities</h4>
+                                    <h4 class="h-40 light-black mb-32">{{__('main.Services')}}</h4>
                                     <ul class="list-unstyled">
+                                        @foreach($icons as $icon)
                                         <li class="h-18 light-black">
-                                            <img src="/assets/media/icon/king-bed.png" alt="">
-                                            King Size Bed
+                                            <img style="max-width: 20%" src="{{$icon->getMedia('icon-image')->first()->getUrl()}}" alt="">
+                                            {{$icon->value_name}}
                                         </li>
-                                        <li class="h-18 light-black">
-                                            <img src="/assets/media/icon/led-tv.png" alt="">
-                                            32" TV
-                                        </li>
-                                        <li class="h-18 light-black">
-                                            <img src="/assets/media/icon/breakfast.png" alt="">
-                                            Breakfast Included
-                                        </li>
-                                        <li class="h-18 light-black">
-                                            <img src="/assets/media/icon/washing-machine-2.png" alt="">
-                                            Washing Machine
-                                        </li>
-                                        <li class="h-18 light-black">
-                                            <img src="/assets/media/icon/internet-wifi.png" alt="">
-                                            High Speed Wifi
-                                        </li>
-                                        <li class="h-18 light-black">
-                                            <img src="/assets/media/icon/swimming-pool.png" alt="">
-                                            Swimming Pool
-                                        </li>
+                                        @endforeach
                                     </ul>
                                 </div>
-                                <h4 class="h-40 light-black mb-32 rules-reg">Rules and Regulation</h4>
-                                <div class="select-form mb-40">
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <select name="select" class="has-nice-select mb-24">
-                                                <option value="check-out">Check-in and Check-out Times:</option>
-                                                <option value="morning">Morning</option>
-                                                <option value="afternoon">Afternoon</option>
-                                                <option value="evening">Evening</option>
-                                                <option value="night">Night</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <select name="select" class="has-nice-select mb-24">
-                                                <option value="beds">Children and extra beds:</option>
-                                                <option value="double">Double Bed</option>
-                                                <option value="family">Family Bed</option>
-                                                <option value="baby">Baby Bed</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <select name="select" class="has-nice-select mb-24">
-                                                <option value="Pets">Pets:</option>
-                                                <option value="dog">Dog</option>
-                                                <option value="cat">Cat</option>
-                                                <option value="kitten">Kitten</option>
-                                                <option value="puppy">Puppy</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <select name="select" class="has-nice-select mb-24">
-                                                <option value="check-out">Cancellation:</option>
-                                                <option value="a-z">A-Z</option>
-                                                <option value="a-z">A-Z</option>
-                                                <option value="a-z">A-Z</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="review-area">
-                                    <h4 class="h-40 light-black mb-32 rules-reg">2. Reviews</h4>
+                                    <h4 class="h-40 light-black mb-32 rules-reg"> Reviews</h4>
                                     <div class="review-block mb-32">
                                         <div class="image-box">
                                             <img src="/assets/media/user/user-5.png" alt="">
@@ -197,48 +140,44 @@
                                     </div>
                                     <div class="col-md-12">
                                         <div class="mb-16">
-                                            <input type="text" id="f-name" name="name" class="form-control" placeholder="First Name" required="">
+                                            <input type="text" id="f-name" name="name" class="form-control" placeholder="First Name" required="" value="{{auth()->user()->name ?? ''}}">
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="mb-16">
-                                            <input type="text" id="last-name" name="name" class="form-control" placeholder="Last Name" required="">
+                                            <input name="phone" class="form-control" id="phone-form-control"  placeholder="+998 (__) ___-__-__" type="tel" value="{{auth()->user()->phone ?? '+998'}}">
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="mb-16">
-                                            <input type="email" id="e_mail" name="email" class="form-control" placeholder="email@example.com" required="">
+                                            <input type="email" id="e_mail" name="email" class="form-control" placeholder="email@example.com" required="" value="{{auth()->user()->email ??  ''}}">
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="input-date-picker mb-16">
-                                            <input type="text" class="date_from form-control" id="checkIn" placeholder="30 Jan, 2024">
+                                            <input type="text" class="date_from form-control" id="checkIn" placeholder="Kelish vaqti ">
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="input-date-picker mb-16">
-                                            <input type="text" class="date_to form-control" id="check_In" placeholder="30 Jan, 2024">
+                                            <input type="text" class="date_to form-control" id="check_In" placeholder="Ketish vaqti">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="input-date-picker mb-16">
+                                            <input type="text" class="form-control" id="check_In" placeholder="Kunlar soni">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="input-date-picker mb-16">
+                                            <input type="text" class="form-control" id="check_In" placeholder="Jami">
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="mb-24">
-                                            <select name="select" class="has-nice-select form-control">
-                                                <option value="guest">Guest and Room</option>
-                                                <option value="morn_ing">Morning</option>
-                                                <option value="after_noon">Afternoon</option>
-                                                <option value="even_ing">Evening</option>
-                                                <option value="at_night">Night</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="mb-24">
-                                            <select name="select" class="has-nice-select form-control">
-                                                <option value="room">Room Type</option>
-                                                <option value="queen">Queen Room</option>
-                                                <option value="double">Double Room</option>
-                                                <option value="deluxe">Deluxe Room</option>
-                                                <option value="family">Family Room</option>
+                                            <select name="type" class="has-nice-select form-control">
+                                                <option value="0">O'zim uchun </option>
+                                                <option value="1">Mehmon uchun</option>
                                             </select>
                                         </div>
                                     </div>
@@ -270,162 +209,51 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="bottom-shape center text-end">
+                            <img src="/assets/media/bg-shape/footer-bg-shape.png" alt="">
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
         <!-- ROOM DETAIL END -->
 
-        <!-- Rooms Section Start -->
-        <section class="rooms" data-sal="slide-up" data-sal-duration="800" data-sal-delay="100" data-sal-easing="ease-in-out">
-            <div class="container-fluid">
-                <div class="content room-detail-bottom">
-                    <div class="sec-heading mb-48">
-                        <p class="h-18 bold light-black justify-content-start text-uppercase sec-text">Luxury Experience</p>
-                        <h2 class="h-69 light-black sec-title">Other Rooms</h2>
-                    </div>
-                    <div class="card-block">
-                        <div class="cards">
-                            <a href="room-detail.html" class="card-item">
-                                <div class="card-image mb-24">
-                                    <div class="card-price">
-                                        <p><span class="color-primary price h-31">$360</span><span class="light-bold">/Night</span></p>
-                                    </div>
-                                    <img src="/assets/media/card-image/image-1.png" class="card-image" alt="">
-                                    <img src="/assets/media/icon/arrow-dark.png" class="icon" alt="">
-                                    <img src="/assets/media/vector-shape/bottom-shape.png" class="corner-shape" alt="">
-                                </div>
-                                <div class="text-block">
-                                    <div class="name-rating d-flex align-items-center justify-content-between mb-16">
-                                        <h4 class="h-31">Single Room</h4>
-                                        <div class="rating">
-                                            <p class="light-bold"><i class="fa-solid fa-star color-primary"></i>
-                                                4.9</p>
-                                        </div>
-                                    </div>
-                                    <p class="sample-text mb-32">At quis nullam duis sed aliquet faucibus. Sed diam pretium cum eget.</p>
+        <script>
+            document.getElementById("phone-form-control").addEventListener("input", function (event) {
+                const phoneInput = event.target;
 
-                                    <ul class="services unstyled">
-                                        <li><img src="/assets/media/icon/double-bed-icon.png" alt="">
-                                            <p class="h-18 bold light-black"> King Size Bed</p>
-                                        </li>
-                                        <li><img src="/assets/media/icon/tv-icon.png" alt="">
-                                            <p class="h-18 bold light-black"> 32 Inc TV</p>
-                                        </li>
-                                        <li><img src="/assets/media/icon/food-icon.png" alt="">
-                                            <p class="h-18 bold light-black"> Breakfast</p>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </a>
-                            <a href="room-detail.html" class="card-item">
-                                <div class="card-image mb-24">
-                                    <div class="card-price">
-                                        <p><span class="color-primary price h-31">$360</span><span class="light-bold">/Night</span></p>
-                                    </div>
-                                    <img src="/assets/media/card-image/image-2.png" class="card-image" alt="">
-                                    <img src="/assets/media/icon/arrow-dark.png" class="icon" alt="">
-                                    <img src="/assets/media/vector-shape/bottom-shape.png" class="corner-shape" alt="">
-                                </div>
-                                <div class="text-block">
-                                    <div class="name-rating d-flex align-items-center justify-content-between mb-16">
-                                        <h4 class="h-31">Queen Room</h4>
-                                        <div class="rating">
-                                            <p class="light-bold"><i class="fa-solid fa-star color-primary"></i>
-                                                4.9</p>
-                                        </div>
-                                    </div>
-                                    <p class="sample-text mb-32">At quis nullam duis sed aliquet faucibus. Sed diam pretium cum eget.</p>
+                // Faqat raqamlarni olib qolish
+                let digits = phoneInput.value.replace(/\D/g, "");
 
-                                    <ul class="services unstyled">
-                                        <li><img src="/assets/media/icon/double-bed-icon.png" alt="">
-                                            <p class="h-18 bold light-black"> King Size Bed</p>
-                                        </li>
-                                        <li><img src="/assets/media/icon/tv-icon.png" alt="">
-                                            <p class="h-18 bold light-black"> 32 Inc TV</p>
-                                        </li>
-                                        <li><img src="/assets/media/icon/food-icon.png" alt="">
-                                            <p class="h-18 bold light-black"> Breakfast</p>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </a>
-                            <a href="room-detail.html" class="card-item">
-                                <div class="card-image mb-24">
-                                    <div class="card-price">
-                                        <p><span class="color-primary price h-31">$360</span><span class="light-bold">/Night</span></p>
-                                    </div>
-                                    <img src="/assets/media/card-image/image-3.png" class="card-image" alt="">
-                                    <img src="/assets/media/icon/arrow-dark.png" class="icon" alt="">
-                                    <img src="/assets/media/vector-shape/bottom-shape.png" class="corner-shape" alt="">
-                                </div>
-                                <div class="text-block">
-                                    <div class="name-rating d-flex align-items-center justify-content-between mb-16">
-                                        <h4 class="h-31">Quad Room</h4>
-                                        <div class="rating">
-                                            <p class="light-bold"><i class="fa-solid fa-star color-primary"></i>
-                                                4.9</p>
-                                        </div>
-                                    </div>
-                                    <p class="sample-text mb-32">At quis nullam duis sed aliquet faucibus. Sed diam pretium cum eget.</p>
+                // Raqamlarning uzunligini cheklash (faqat 9 ta raqam)
+                if (digits.startsWith("998")) {
+                    digits = digits.slice(3); // "+998" ni saqlash
+                } else {
+                    digits = digits.replace(/^998/, ""); // Agar foydalanuvchi 998 ni noto'g'ri joylashtirsa
+                }
+                digits = digits.substring(0, 9); // Maksimal 9 ta raqam
 
-                                    <ul class="services unstyled">
-                                        <li><img src="/assets/media/icon/double-bed-icon.png" alt="">
-                                            <p class="h-18 bold light-black"> King Size Bed</p>
-                                        </li>
-                                        <li><img src="/assets/media/icon/tv-icon.png" alt="">
-                                            <p class="h-18 bold light-black"> 32 Inc TV</p>
-                                        </li>
-                                        <li><img src="/assets/media/icon/food-icon.png" alt="">
-                                            <p class="h-18 bold light-black"> Breakfast</p>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </a>
-                            <a href="room-detail.html" class="card-item">
-                                <div class="card-image mb-24">
-                                    <div class="card-price">
-                                        <p><span class="color-primary price h-31">$360</span><span class="light-bold">/Night</span></p>
-                                    </div>
-                                    <img src="/assets/media/card-image/image-4.png" class="card-image" alt="">
-                                    <img src="/assets/media/icon/arrow-dark.png" class="icon" alt="">
-                                    <img src="/assets/media/vector-shape/bottom-shape.png" class="corner-shape" alt="">
-                                </div>
-                                <div class="text-block">
-                                    <div class="name-rating d-flex align-items-center justify-content-between mb-16">
-                                        <h4 class="h-31">Double Room</h4>
-                                        <div class="rating">
-                                            <p class="light-bold"><i class="fa-solid fa-star color-primary"></i>
-                                                4.9</p>
-                                        </div>
-                                    </div>
-                                    <p class="sample-text mb-32">At quis nullam duis sed aliquet faucibus. Sed diam pretium cum eget.</p>
+                // Formatlash: "(98) 457-25-19"
+                let formatted = "+998";
+                if (digits.length > 0) {
+                    formatted += ` (${digits.substring(0, 2)}`;
+                }
+                if (digits.length > 2) {
+                    formatted += `) ${digits.substring(2, 5)}`;
+                }
+                if (digits.length > 5) {
+                    formatted += `-${digits.substring(5, 7)}`;
+                }
+                if (digits.length > 7) {
+                    formatted += `-${digits.substring(7, 9)}`;
+                }
 
-                                    <ul class="services unstyled">
-                                        <li><img src="/assets/media/icon/double-bed-icon.png" alt="">
-                                            <p class="h-18 bold light-black"> King Size Bed</p>
-                                        </li>
-                                        <li><img src="/assets/media/icon/tv-icon.png" alt="">
-                                            <p class="h-18 bold light-black"> 32 Inc TV</p>
-                                        </li>
-                                        <li><img src="/assets/media/icon/food-icon.png" alt="">
-                                            <p class="h-18 bold light-black"> Breakfast</p>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="room-bottom-shapes">
-                    <div class="shape-right text-end">
-                    </div>
-                    <div class="shape-left">
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- Rooms Section End -->
+                // Formatni qo'llash
+                phoneInput.value = formatted;
+            });
+
+
+        </script>
 
     </div>
 </x-layouts.frontend>

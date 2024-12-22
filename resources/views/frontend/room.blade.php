@@ -42,6 +42,9 @@ $lang=app()->getLocale();
                                                                 <span class="color-primary price h-31"
                                                                       style="font-size: 18px;">{{ intval($value->price) .'  '.__('main.Sum')}}</span>
                                                     </p>
+                                                    <p><span class="color-primary h-40">{{intval($value->price).' '. __('main.Sum')}}</span>
+                                                        <span class="light-bold light-black">/Night</span>
+                                                    </p>
                                                 </div>
                                                 <img src="/assets/media/card-image/image-1.png" class="card-image"
                                                      alt="">

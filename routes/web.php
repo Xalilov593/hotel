@@ -17,6 +17,8 @@ Route::get('/booking', [PageController::class, 'booking'])->name('booking');
 Route::get('/room/{lang}/{id}', [PageController::class, 'roomDetail'])->name('room-detail');
 
 
+Route::post('/{lang}/logout', [\App\Http\Controllers\Auth\AuthController::class, 'logout'])->name('logout');
 Route::get('/{lang}/register', [\App\Http\Controllers\Auth\AuthController::class, 'register'])->name('register');
+Route::post('/{lang}/registerPost', [\App\Http\Controllers\Auth\AuthController::class, 'registerPost'])->name('registerPost');
 Route::get('/{lang}/login', [\App\Http\Controllers\Auth\AuthController::class, 'login'])->name('login');
 Route::post('/{lang}/loginPost', [\App\Http\Controllers\Auth\AuthController::class, 'loginPost'])->name('loginPost');
