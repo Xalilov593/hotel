@@ -126,7 +126,8 @@
     <div class="container mt-7 pt-lg-7 pb-4">
         <div class="row align-items-center">
             <div class="col-md-3">
-                <a class="mb-4 mb-lg-0 d-block text-inverse" href="index.html"><img src="assets/images/logo/logo.svg" alt=""></a>
+                <a href="{{route('home' , app()->getLocale())}}"><img src="/css/filament/logo.png" style="width: 300px"
+                                                                      alt="brand" class="mb-3"></a>
             </div>
             <div class="col-md-9 col-lg-6">
                 <div class="small mb-3 mb-lg-0 text-lg-center">

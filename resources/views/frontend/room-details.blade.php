@@ -153,15 +153,20 @@
                                         @csrf
                                         <div class="col-md-6">
                                             <label for="arrivalDate" class="form-label">Kelish sanasi</label>
-                                            <input type="date" name="start_date" class="form-control input-date-formatting"
-                                                   id="arrivalDate"
-                                                   placeholder="YYYY-MM-DD" required/>
+                                            <input type="date" name="start_date" value="{{ old('start_date') }}" class="form-control input-date-formatting"
+                                                   id="arrivalDate" placeholder="YYYY-MM-DD" required/>
+                                            @error('start_date')
+                                            <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="col-md-6">
                                             <label for="departureDate" class="form-label">Chiqish sanasi</label>
-                                            <input type="date" name="end_date" class="form-control input-date-formatting"
+                                            <input type="date" name="end_date" value="{{old('end_date')}}" class="form-control input-date-formatting"
                                                    id="departureDate"
                                                    placeholder="YYYY-MM-DD" required/>
+                                            @error('end_date')
+                                            <div class="text-danger">{{$message}}</div>
+                                            @enderror
                                         </div>
                                         <div class="col-md-4">
                                             <label class="form-label">Room</label>
@@ -169,14 +174,14 @@
                                         </div>
                                         <div class="col-md-4">
                                             <label class="form-label" for="adults">Adults</label>
-                                            <input type="number" name="adults" id="adults" class="form-control" min="1"
-                                                   placeholder="1">
+                                            <input type="number"  name="adults" id="adults" class="form-control" min="1"
+                                                   placeholder="1" value="{{old('adults')}}">
                                         </div>
 
                                         <div class="col-md-4">
                                             <label class="form-label" for="children">Children</label>
                                             <input type="number" name="children" id="children" class="form-control" placeholder="0"
-                                                   min="0">
+                                                   min="0" value="{{old('children')}}">
                                         </div>
 
                                         <div id="error-message" class="text-danger" style="display: none;">
@@ -185,7 +190,7 @@
                                         <div class="col-12">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" name="type" value="1"
-                                                       id="guestCheckbox" required>
+                                                       id="guestCheckbox" >
                                                 <label class="form-check-label" for="guestCheckbox">
                                                     Mehmonlar uchun
                                                 </label>
@@ -199,22 +204,21 @@
                                             <div class="row">
                                                 @foreach(range(1, $room->bed_qty) as $index)
                                                     <div class="col-md-6">
-                                                        <label class="form-label"
-                                                               for="guest_name_{{ $index }}">Ismi {{$index}}</label>
+                                                        <label class="form-label" for="guest_name_{{ $index }}">Ismi {{$index}}</label>
                                                         <input type="text" class="form-control"
                                                                id="guest_name_{{ $index }}"
                                                                name="name[{{ $index }}]"
-                                                               placeholder="Ismi va familiyasi">
+                                                               placeholder="Ismi va familiyasi" value="{{ old('name.' . $index) }}">
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <label class="form-label"
-                                                               for="guest_age_{{ $index }}">Yoshi {{$index}}</label>
+                                                        <label class="form-label" for="guest_age_{{ $index }}">Yoshi {{$index}}</label>
                                                         <input type="number" class="form-control"
                                                                id="guest_age_{{ $index }}"
                                                                name="age[{{ $index }}]" min="1"
-                                                               placeholder="Yoshini kiriting">
+                                                               placeholder="Yoshini kiriting" value="{{ old('age.' . $index) }}">
                                                     </div>
                                                 @endforeach
+
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -354,10 +358,22 @@
         document.getElementById('children').addEventListener('input', validateRooms);
 
         function validateRooms() {
-            let adults = parseInt(document.getElementById('adults').value) || 1;
-            let children = parseInt(document.getElementById('children').value) || 0;
-            let totalPeople = adults + children;
+            let adultsInput = document.getElementById('adults').value;
+            let childrenInput = document.getElementById('children').value;
 
+            let adults = (adultsInput !== '' && adultsInput !== null) ? parseInt(adultsInput) : 1;
+            let children = (childrenInput !== '' && childrenInput !== null) ? parseInt(childrenInput) : 0;
+
+            // Agar parseInt null yoki NaN qaytarsa, default qiymatni o'rnatish
+            if (isNaN(adults) || adults < 1) {
+                adults = 1;
+            }
+
+            if (isNaN(children) || children < 0) {
+                children = 0;
+            }
+
+            let totalPeople = adults + children;
             let bedQty = {{$room->bed_qty}};
 
             if (totalPeople > bedQty) {
@@ -366,6 +382,8 @@
                 document.getElementById('error-message').style.display = 'none';
             }
         }
+
+
 
         document.getElementById('guestCheckbox').addEventListener('change', function () {
             var guestFields = document.getElementById('guestFields');
