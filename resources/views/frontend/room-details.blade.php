@@ -175,13 +175,13 @@
                                         <div class="col-md-4">
                                             <label class="form-label" for="adults">Adults</label>
                                             <input type="number"  name="adults" id="adults" class="form-control" min="1"
-                                                   placeholder="1" value="{{old('adults')}}">
+                                                   placeholder="1" value="{{old('adults') ?? 1}}">
                                         </div>
 
                                         <div class="col-md-4">
                                             <label class="form-label" for="children">Children</label>
                                             <input type="number" name="children" id="children" class="form-control" placeholder="0"
-                                                   min="0" value="{{old('children')}}">
+                                                   min="0" value="{{old('children') ?? 0}}">
                                         </div>
 
                                         <div id="error-message" class="text-danger" style="display: none;">
@@ -289,41 +289,39 @@
                                     <div class="mb-6 text-center">
                                         <h3 class="mb-0">Register</h3>
                                     </div>
-                                    <form class="row g-3 needs-validation" novalidate="">
+                                    <form class="row g-3 needs-validation" novalidate="" action="{{route('roomDetailForm', app()->getLocale())}}" method="POST">
+                                        @csrf
                                         <div class="col-md-6">
                                             <label for="eventSingleNameInput" class="form-label">
                                                 First Name
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <input type="text" class="form-control" id="eventSingleNameInput"
+                                            <input type="text" name="name" class="form-control" id="eventSingleNameInput"
                                                    required="">
-                                            <div class="invalid-feedback">Please enter first name.</div>
+                                            <div class="invalid-feedback">Please enter  name.</div>
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="eventSingleLastNameInput" class="form-label">
-                                                Last Name
-                                                <span class="text-danger">*</span>
-                                            </label>
-                                            <input type="text" class="form-control" id="eventSingleLastNameInput"
-                                                   required="">
-                                            <div class="invalid-feedback">Please enter last name.</div>
+                                            <label for="phone" class="form-label">Phone number</label>
+                                            <input type="text" name="phone" class="form-control input-phone" id="phone" placeholder="+998XX XXX XXXX" required="" />
+                                            <div class="invalid-feedback">Please enter phone.</div>
+
                                         </div>
                                         <div class="col-md-6">
                                             <label for="eventSingleEmailInput" class="form-label">
                                                 Email
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <input type="email" class="form-control" id="eventSingleEmailInput"
+                                            <input type="email" name="email" class="form-control" id="eventSingleEmailInput"
                                                    required="">
                                             <div class="invalid-feedback">Please enter email.</div>
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="eventSinglePhoneInput" class="form-label">
-                                                Phone Number
-                                                <span class="text-body">(optional)</span>
-                                            </label>
-                                            <input type="tel" class="form-control" id="eventSinglePhoneInput">
-                                            <div class="invalid-feedback">Please enter phone.</div>
+                                            <label for="formSignUpPassword" class="form-label">Password</label>
+                                            <div class="password-field position-relative">
+                                                <input name="password" type="password" class="form-control fakePassword" id="formSignUpPassword" required="">
+                                                <span><i class="bi bi-eye-slash passwordToggler"></i></span>
+                                                <div class="invalid-feedback">Please enter password.</div>
+                                            </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-check">
@@ -354,34 +352,6 @@
 
     </main>
     <script>
-        document.getElementById('adults').addEventListener('input', validateRooms);
-        document.getElementById('children').addEventListener('input', validateRooms);
-
-        function validateRooms() {
-            let adultsInput = document.getElementById('adults').value;
-            let childrenInput = document.getElementById('children').value;
-
-            let adults = (adultsInput !== '' && adultsInput !== null) ? parseInt(adultsInput) : 1;
-            let children = (childrenInput !== '' && childrenInput !== null) ? parseInt(childrenInput) : 0;
-
-            // Agar parseInt null yoki NaN qaytarsa, default qiymatni o'rnatish
-            if (isNaN(adults) || adults < 1) {
-                adults = 1;
-            }
-
-            if (isNaN(children) || children < 0) {
-                children = 0;
-            }
-
-            let totalPeople = adults + children;
-            let bedQty = {{$room->bed_qty}};
-
-            if (totalPeople > bedQty) {
-                document.getElementById('error-message').style.display = 'block';
-            } else {
-                document.getElementById('error-message').style.display = 'none';
-            }
-        }
 
 
 
@@ -419,6 +389,7 @@
             arrivalInput.addEventListener("input", calculateTotalPrice);
             departureInput.addEventListener("input", calculateTotalPrice);
         });
+
 
     </script>
 @endsection

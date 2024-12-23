@@ -77,5 +77,35 @@ class AuthController extends Controller
         }
 
     }
+    public function roomdetailform($lang, Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'phone' => 'string|min:9',
+            'password' => 'required|string',
+        ]);
+
+        try {
+            $user = User::create([
+                'name' => $validated['name'],
+                'email' => $validated['email'],
+                'phone' => $validated['phone'],
+                'password' => Hash::make($validated['password']),
+            ]);
+
+            $user->assignRole('client');
+            Auth::login($user);
+
+            return redirect()->back();
+
+
+
+
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
+
+    }
 
 }

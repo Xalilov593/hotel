@@ -51,21 +51,37 @@
                                placeholder="YYYY-MM-DD" required/>
                     </div>
                 </div>
+                @php
+                    $rooms = \App\Models\Room::all();
+                @endphp
 
                 <div class="col-md-3 border-end-md border-bottom border-bottom-md-0" data-cue="zoomIn">
-                    <label for="selectForm" class="form-label">{{__('main.Rooms')}}</label>
+                    <label for="selectForm" class="form-label">{{ __('main.Rooms') }}</label>
                     <select id="selectForm" class="form-select" aria-label="Default select example">
-                        <option selected>Xonalardan birini tanlang</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        <option selected disabled>Xonalardan birini tanlang</option>
+                        @foreach($rooms as $room)
+                            <option value="{{ route('room-detail', [app()->getLocale(), $room->id]) }}">{{ $room->title }}</option>
+                        @endforeach
                     </select>
                 </div>
-                <div class="col-md-3 " data-cue="zoomIn">
+                <div class="col-md-3" data-cue="zoomIn">
                     <div class="mb-3 mt-5">
-                        <button type="button" class="btn btn-light form-control ">Book</button>
+                        <button type="button" class="btn btn-light form-control" onclick="redirectToSelectedRoom()">Book</button>
                     </div>
                 </div>
+                <script>
+                    function redirectToSelectedRoom() {
+                        const select = document.getElementById('selectForm');
+                        const selectedValue = select.value;
+
+                        if (selectedValue) {
+                            window.location.href = selectedValue;
+                        } else {
+                            alert("Iltimos, xonani tanlang!");
+                        }
+                    }
+                </script>
+
 
             </div>
         </div>

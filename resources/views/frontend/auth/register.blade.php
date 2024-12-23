@@ -135,25 +135,4 @@
         </div>
     </div>
 </main>
-    <script>
-        document.getElementById('phone').addEventListener('input', function (e) {
-            let input = e.target.value.replace(/\D/g, ''); // Faqat raqamlarni oling
-            let formattedInput = '';
-
-            if (input.startsWith('998')) {
-                formattedInput = '+' + input.substring(0, 3) + ' ';
-                if (input.length > 3) formattedInput += input.substring(3, 5) + ' ';
-                if (input.length > 5) formattedInput += input.substring(5, 8) + ' ';
-                if (input.length > 8) formattedInput += input.substring(8, 12);
-            } else {
-                formattedInput = '+998 ';
-                if (input.length > 0) formattedInput += input.substring(0, 2) + ' ';
-                if (input.length > 2) formattedInput += input.substring(2, 5) + ' ';
-                if (input.length > 5) formattedInput += input.substring(5, 8);
-            }
-
-            e.target.value = formattedInput.trim(); // Formatlangan qiymatni qaytaring
-        });
-
-    </script>
 @endsection
