@@ -8,6 +8,7 @@ use App\Models\Room;
 use App\Models\Type;
 use Filament\Forms;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Concerns\Translatable;
@@ -81,6 +82,16 @@ class RoomResource extends Resource
                     ->schema([
                         Forms\Components\RichEditor::make('description')
                     ]),
+                Forms\Components\Section::make(__('main.Image'))
+                    ->schema([
+                        SpatieMediaLibraryFileUpload::make('media')
+                            ->collection('room-images')
+                            ->maxFiles(5)
+                            ->imageEditor()
+                            ->multiple()
+                            ->hiddenLabel(),
+                    ])
+                    ->collapsible(),
 
             ]);
     }
@@ -95,6 +106,9 @@ class RoomResource extends Resource
                 Tables\Columns\TextColumn::make('price_child'),
                 Tables\Columns\TextColumn::make('size'),
                 Tables\Columns\TextColumn::make('quantity'),
+                Tables\Columns\SpatieMediaLibraryImageColumn::make('room-images')
+                    ->label(__('main.Image'))
+                    ->collection('room-images'),
 
             ])
             ->filters([

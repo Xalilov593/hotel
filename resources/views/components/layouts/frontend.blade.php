@@ -1,82 +1,133 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="Luxury Hotel - Elevating Project Success with Cutting Edge Engineering Solutions and On-Time Precision">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon icon-->
+    <link href="{{asset('../assets/libs/prismjs/themes/prism-okaidia.min.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('../assets/libs/swiper/swiper-bundle.min.css')}}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{asset('assets/images/favicon/apple-touch-icon.png')}}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{asset('assets/images/favicon/favicon-32x32.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{asset('assets/images/favicon/favicon-16x16.png')}}">
+    <link rel="manifest" href="{{asset('assets/images/favicon/site.webmanifest')}}">
+    <link rel="mask-icon" href="{{asset('assets/images/favicon/block-safari-pinned-tab.svg')}}" color="#8b3dff">
+    <link rel="shortcut icon" href="{{asset('assets/images/favicon/favicon.ico')}}">
+    <meta name="msapplication-TileColor" content="#8b3dff">
+    <meta name="msapplication-config" content="./assets/images/favicon/tile.xml">
 
-    <title>Avloniy Hotel</title>
+    <!-- Color modes -->
+    <script src="{{asset('assets/js/vendors/color-modes.js')}}"></script>
 
-    <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('css/filament/favi.png')}}">
+    <!-- Libs CSS -->
+    <link href="{{asset('assets/libs/simplebar/dist/simplebar.min.css')}}" rel="stylesheet">
+    <link href="{{asset('assets/libs/bootstrap-icons/font/bootstrap-icons.min.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <!-- Scroll Cue -->
+    <link rel="stylesheet" href="{{asset('assets/libs/scrollcue/scrollCue.css')}}">
 
-    <!-- All CSS files -->
-    <link rel="stylesheet" href="{{ asset('assets/css/vendor/css2')}}">
-    <link rel="stylesheet" href="{{ asset('assets/css/vendor/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{ asset('assets/css/vendor/all.min.css')}}">
-    <link rel="stylesheet" href="{{ asset('assets/css/vendor/slick.css')}}">
-    <link rel="stylesheet" href="{{ asset('assets/css/vendor/slick-theme.css')}}">
-    <link rel="stylesheet" href="{{ asset('assets/css/vendor/classic.css')}}">
-    <link rel="stylesheet" href="{{ asset('assets/css/vendor/classic.date.css')}}">
-    <link rel="stylesheet" href="{{ asset('assets/css/vendor/animate.min.css')}}">
-    <link rel="stylesheet" href="{{ asset('assets/css/vendor/sal.css')}}">
+    <!-- Box icons -->
+    <link rel="stylesheet" href="{{asset('assets/fonts/css/boxicons.min.css')}}">
 
-    <link rel="stylesheet" href="{{ asset('assets/css/app.css')}}">
 
-    <script src="{{ asset('assets/js/vendor/lottie.min.js')}}"></script>
-    <script src="{{ asset('assets/js/vendor/loader.js')}}"></script>
-    <script async="" src="{{ asset('assets/js/gtag/js?id=UA-266165434-1')}}"></script>
+    <link rel="stylesheet" href="{{asset('assets/css/theme.min.css')}}">
+    <!-- Analytics Code -->
+    <script async="" src="gtag/js?id=G-M8S4MT3EYG"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
 
-        gtag('config', 'UA-266165434-1');
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag("js", new Date());
+
+        gtag("config", "G-M8S4MT3EYG");
     </script>
-    <!-- Bootstrap CSS -->
+    <script type="text/javascript">
+        (function (c, l, a, r, i, t, y) {
+            c[a] =
+                c[a] ||
+                function () {
+                    (c[a].q = c[a].q || []).push(arguments);
+                };
+            t = l.createElement(r);
+            t.async = 1;
+            t.src = "https://www.clarity.ms/tag/" + i;
+            y = l.getElementsByTagName(r)[0];
+            y.parentNode.insertBefore(t, y);
+        })(window, document, "clarity", "script", "kss8za9j58");
+
+        document.addEventListener("DOMContentLoaded", function () {
+            // Kelish sanasi
+            flatpickr("#arrivalDate", {
+                dateFormat: "Y-m-d",
+                minDate: "today", // Hozirgi kundan boshlanadi
+                onChange: function (selectedDates, dateStr, instance) {
+                    // Chiqish sanasini kelish sanasidan keyin boshlanishini o'rnating
+                    let departurePicker = flatpickr("#departureDate");
+                    departurePicker.set("minDate", dateStr);
+                },
+                onReady: function () {
+                    // Kalendar fon rangini o'zgartirish
+                    let calendar = document.querySelector(".flatpickr-calendar");
+                    if (calendar) {
+                        calendar.style.backgroundColor = "#e2e8f0"; // Orqa fon rangi
+                    }
+                },
+            });
+
+            // Chiqish sanasi
+            flatpickr("#departureDate", {
+                dateFormat: "Y-m-d",
+                minDate: "today", // Hozirgi kundan boshlanadi
+                onReady: function () {
+                    // Kalendar fon rangini o'zgartirish
+                    let calendar = document.querySelector(".flatpickr-calendar");
+                    if (calendar) {
+                        calendar.style.backgroundColor = "#e2e8f0"; // Orqa fon rangi
+                    }
+                },
+            });
+        });
+
+    </script>
 
 
-
+    <title>Jamstack Agency - Responsive Website Template | Block</title>
 </head>
 
-<body id="body" class="x-hidden">
+<body>
+@include('components.header')
+@yield('main')
+@include('components.footer')
+
+<div class="btn-scroll-top">
+    <svg class="progress-square svg-content" width="100%" height="100%" viewbox="0 0 40 40">
+        <path
+            d="M8 1H32C35.866 1 39 4.13401 39 8V32C39 35.866 35.866 39 32 39H8C4.13401 39 1 35.866 1 32V8C1 4.13401 4.13401 1 8 1Z"></path>
+    </svg>
+</div>
+<!-- Libs JS -->
+<script src="{{asset('assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{asset('assets/libs/simplebar/dist/simplebar.min.js')}}"></script>
+<script src="{{asset('assets/libs/headhesive/dist/headhesive.min.js')}}"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+<!-- Theme JS -->
+<script src="{{asset('assets/js/theme.min.js')}}"></script>
+
+<script src="{{asset('assets/libs/jarallax/dist/jarallax.min.js')}}"></script>
+<script src="{{asset('assets/js/vendors/jarallax.js')}}"></script>
+<script src="{{asset('assets/libs/scrollcue/scrollCue.min.js')}}"></script>
+<script src="{{asset('assets/js/vendors/scrollcue.js')}}"></script>
 
 
-    <!--  Begin scroll container -->
-    <div id="smooth-wrapper">
-        <div id="smooth-content">
-            <x-header></x-header>
-            {{ $slot }}
-            <x-footer></x-footer>
-        </div>
-        <!-- End content wrap -->
-    </div>
-    <!-- End scroll container -->
-    <!-- Jquery Js -->
-    <script src="{{ asset('assets/js/vendor/jquery-3.6.3.min.js')}}"></script>
+<script src="{{asset('/assets/libs/swiper/swiper-bundle.min.js')}}"></script>
+<script src="{{asset('/assets/js/vendors/swiper.js')}}"></script>
 
-    <script src="{{ asset('assets/js/vendor/bootstrap.min.js')}}"></script>
-    <script src="{{ asset('assets/js/vendor/gsap.min.js')}}"></script>
-    <script src="{{ asset('assets/js/vendor/scrollTrigger.min.js')}}"></script>
-    <script src="{{ asset('assets/js/vendor/ScrollToPlugin.min.js')}}"></script>
-    <script src="{{ asset('assets/js/vendor/ScrollSmoother.min.js')}}"></script>
-    <script src="{{ asset('assets/js/vendor/Flip.min.js')}}"></script>
-    <script src="{{ asset('assets/js/vendor/jquery-appear.js')}}"></script>
-    <script src="{{ asset('assets/js/vendor/jquery-validator.js')}}"></script>
-    <script src="{{ asset('assets/js/vendor/slick.min.js')}}"></script>
-    <script src="{{ asset('assets/js/vendor/picker.js')}}"></script>
-    <script src="{{ asset('assets/js/vendor/picker.date.js')}}"></script>
-    <script src="{{ asset('assets/js/vendor/slick-animation.min.js')}}"></script>
-    <script src="{{ asset('assets/js/vendor/sal.js')}}"></script>
-    <script src="{{asset('assets/js/sdk.latest.js')}}"></script>
-
-    <script src="{{ asset('assets/js/date.js')}}"></script>
-    <script src="{{ asset('assets/js/app.js')}}"></script>
-    <script src="https://unpkg.com/splittype"></script>
-
-
-
+<script src="{{asset('assets/libs/parallax-js/dist/parallax.min.js')}}"></script>
+<script src="{{asset('assets/js/vendors/parallax.js')}}"></script>
 </body>
-
 </html>

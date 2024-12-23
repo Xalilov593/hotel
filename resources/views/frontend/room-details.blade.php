@@ -1,259 +1,406 @@
-<x-layouts.frontend>
-    <!-- Title Banner Start -->
-    <section class="title-banner">
-        <div class="container-fluid">
-            <div class="content room-banner">
-                <div class="title-block">
-                    <div class="title">
-                        <h2 class="h-69">Room Detail</h2>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Title Banner End -->
+@extends('components.layouts.frontend')
+@section('main')
 
-    <!-- Start Page Content -->
-    <div class="page-content">
-
-        <!-- Gallery Section Start -->
-        <div class="gallery gallery-detail">
-            <div class="container-fluid">
-                <div class="content gallery-content">
-                    <div class="image-container mb-40">
-                        <img src="/assets/media/gallery/3.png" alt="">
-                    </div>
-                    <div class="images background-shape">
-                        <div class="gallery-img">
-                            <img src="/assets/media/gallery/1.png" class="image-1 image-v2" alt="">
-                        </div>
-                        <div class="gallery-img">
-                            <img src="/assets/media/gallery/3.png" class="image-1 image-v2" alt="">
-                        </div>
-                        <div class="gallery-img">
-                            <img src="/assets/media/gallery/4.png" class="image-1 image-v2" alt="">
-                        </div>
-                        <div class="gallery-img d-sm-block">
-                            <img src="/assets/media/gallery/5.png" class="image-1 image-v2" alt="">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Gallery Section End -->
-
-        <!-- ROOM DETAIL START -->
-        <section class="room-detail">
-            <div class="container-fluid">
-                <div class="room-detail-wrapper">
-                    <div class="row">
-                        <div class="col-xl-8">
-                            <div class="room-content-wrapper">
-                                <div class="price-title mb-32">
-                                    <h3 class="h-53 light-black mb-16">{{$room->title}}</h3>
-                                    <p><span class="color-primary h-40">{{intval($room->price).' '. __('main.Sum')}}</span>
-                                        <span class="light-bold light-black">/Night</span>
-                                    </p>
-                                </div>
-                                <p class="h-18 dark-gray font-sec mb-48">{{$room->description}}</p>
-                                @php
-                                    $icons = $room->types()->get();
-
-                                @endphp
-                                <div class="room-amenities mb-48">
-                                    <h4 class="h-40 light-black mb-32">{{__('main.Services')}}</h4>
-                                    <ul class="list-unstyled">
-                                        @foreach($icons as $icon)
-                                        <li class="h-18 light-black">
-                                            <img style="max-width: 20%" src="{{$icon->getMedia('icon-image')->first()->getUrl()}}" alt="">
-                                            {{$icon->value_name}}
-                                        </li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                                <div class="review-area">
-                                    <h4 class="h-40 light-black mb-32 rules-reg"> Reviews</h4>
-                                    <div class="review-block mb-32">
-                                        <div class="image-box">
-                                            <img src="/assets/media/user/user-5.png" alt="">
-                                        </div>
-                                        <div class="text-box">
-                                            <h6 class="h-18 font-sec light-black mb-8">Ethan Clarke</h6>
-                                            <div class="rating-star mb-16">
-                                                <i class="fa-solid fa-star-sharp color-primary"></i>
-                                                <i class="fa-solid fa-star-sharp color-primary"></i>
-                                                <i class="fa-solid fa-star-sharp color-primary"></i>
-                                                <i class="fa-solid fa-star-sharp color-primary"></i>
-                                                <i class="fa-solid fa-star-sharp color-primary"></i>
-                                            </div>
-                                            <p class="h-18 font-sec dark-gray">Lorem ipsum dolor sit amet consectetur. Neque dictum gravida nunc euismod. Nulla
-                                                dolor rutrum consectetur purus proin ut. Cras cursus nullam erat at aliquet luctus et purus urna.</p>
-                                        </div>
-                                    </div>
-                                    <div class="review-block mb-32">
-                                        <div class="image-box">
-                                            <img src="/assets/media/user/user-6.png" alt="">
-                                        </div>
-                                        <div class="text-box">
-                                            <h6 class="h-18 font-sec light-black mb-8">Sophia Reynolds</h6>
-                                            <div class="rating-star mb-16">
-                                                <i class="fa-solid fa-star-sharp color-primary"></i>
-                                                <i class="fa-solid fa-star-sharp color-primary"></i>
-                                                <i class="fa-solid fa-star-sharp color-primary"></i>
-                                                <i class="fa-solid fa-star-sharp color-primary"></i>
-                                                <i class="fa-solid fa-star-sharp color-primary"></i>
-                                            </div>
-                                            <p class="h-18 font-sec dark-gray">Lorem ipsum dolor sit amet consectetur. Neque dictum gravida nunc euismod. Nulla
-                                                dolor rutrum consectetur purus proin ut. Cras cursus nullam erat at aliquet luctus et purus urna.</p>
-                                        </div>
-                                    </div>
-                                    <h5 class="h-24 light-black mb-16 rules-reg">Add a review</h5>
-                                    <p class="h-18 font-sec dark-gray mb-32">Your email address will not be published. Required fields are marked *</p>
-                                    <form action="room-detail.html" method="post" class="form-group contact-form">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <textarea name="message" id="comment" cols="30" rows="10" class="form-control mb-32" placeholder="Good Quality..."></textarea>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="mb-32">
-                                                    <input type="text" id="name" name="name" class="form-control" placeholder="Your Name" required="">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="mb-32">
-                                                    <input type="email" id="mail" name="email" class="form-control" placeholder="email@example.com" required="">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <button type="submit" class="cus-btn submit-button">Submit</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-4">
-                            <div class="room-detail-sidebar mt-xl-0 mt-24">
-                                <form action="room-detail.html" method="get" class="mb-48">
-                                    <div class="sidebar-title mb-32">
-                                        <h4 class="h-31 fw-600 light-black bold-text">Book Your Room</h4>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="mb-16">
-                                            <input type="text" id="f-name" name="name" class="form-control" placeholder="First Name" required="" value="{{auth()->user()->name ?? ''}}">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="mb-16">
-                                            <input name="phone" class="form-control" id="phone-form-control"  placeholder="+998 (__) ___-__-__" type="tel" value="{{auth()->user()->phone ?? '+998'}}">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="mb-16">
-                                            <input type="email" id="e_mail" name="email" class="form-control" placeholder="email@example.com" required="" value="{{auth()->user()->email ??  ''}}">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="input-date-picker mb-16">
-                                            <input type="text" class="date_from form-control" id="checkIn" placeholder="Kelish vaqti ">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="input-date-picker mb-16">
-                                            <input type="text" class="date_to form-control" id="check_In" placeholder="Ketish vaqti">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="input-date-picker mb-16">
-                                            <input type="text" class="form-control" id="check_In" placeholder="Kunlar soni">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="input-date-picker mb-16">
-                                            <input type="text" class="form-control" id="check_In" placeholder="Jami">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="mb-24">
-                                            <select name="type" class="has-nice-select form-control">
-                                                <option value="0">O'zim uchun </option>
-                                                <option value="1">Mehmon uchun</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <button type="submit" class="cus-btn form-btn w-100">Check Availability</button>
-                                </form>
-                                <div class="sidebar-title mb-32">
-                                    <h4 class="h-31 fw-600 light-black bold-text">Summer Offer</h4>
-                                </div>
-                                <div class="offer-block mb-16">
-                                    <a href="offers.html"><img src="/assets/media/gallery/side-image-1.png" alt=""></a>
-                                    <div>
-                                        <h4 class="h-24 light-black mb-16"><a href="offers.html">Sun-kissed Stays</a></h4>
-                                        <p class="h-18 dark-gray">From $220 / Per Night</p>
-                                    </div>
-                                </div>
-                                <div class="offer-block mb-16">
-                                    <a href="offers.html"><img src="/assets/media/gallery/side-image-2.png" alt=""></a>
-                                    <div>
-                                        <h4 class="h-24 light-black mb-16"><a href="offers.html">Warm Weather Getaway</a></h4>
-                                        <p class="h-18 dark-gray">From $220 / Per Night</p>
-                                    </div>
-                                </div>
-                                <div class="offer-block">
-                                    <a href="offers.html"><img src="/assets/media/gallery/side-image-3.png" alt=""></a>
-                                    <div>
-                                        <h4 class="h-24 light-black mb-16"><a href="offers.html">Seasonal Serenity</a></h4>
-                                        <p class="h-18 dark-gray">From $220 / Per Night</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bottom-shape center text-end">
-                            <img src="/assets/media/bg-shape/footer-bg-shape.png" alt="">
-                        </div>
+    <main>
+        <div class="pattern-square"></div>
+        <!--Back to page start-->
+        <section class="py-5 py-lg-8">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <a href="events.html" class="text-reset icon-link icon-link-hover">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-arrow-left" viewbox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                      d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"></path>
+                            </svg>
+                            back to events
+                        </a>
                     </div>
                 </div>
             </div>
         </section>
-        <!-- ROOM DETAIL END -->
+        <!--Back to page end-->
 
-        <script>
-            document.getElementById("phone-form-control").addEventListener("input", function (event) {
-                const phoneInput = event.target;
+        <!--Digital experience start-->
+        <section class="mb-xl-9">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mb-6">
+                            <h1 class="mb-0">{{$room->title}}</h1>
+                        </div>
+                    </div>
+                </div>
+                @php
+                    $images = $room->getMedia('room-images');
+                @endphp
+                <div class="row">
+                    <div class="col-lg-8 col-md-12">
+                        <div class="col-12">
+                            <div
+                                class="swiper-container swiper"
+                                id="swiper-2"
+                                data-pagination-type=""
+                                data-speed="400"
+                                data-space-between="100"
+                                data-pagination="true"
+                                data-navigation="false"
+                                data-autoplay="true"
+                                data-autoplay-delay="2000"
+                                data-breakpoints='{"480": {"slidesPerView": 1}, "768": {"slidesPerView": 1}, "1024": {"slidesPerView": 1}}'>
+                                <div class="swiper-wrapper pb-6">
+                                    @foreach($images as $image)
+                                        <div class="swiper-slide">
+                                            <img src="{{$image->getUrl()}}" alt="project" class="img-fluid rounded-3"/>
+                                        </div>
+                                    @endforeach
 
-                // Faqat raqamlarni olib qolish
-                let digits = phoneInput.value.replace(/\D/g, "");
 
-                // Raqamlarning uzunligini cheklash (faqat 9 ta raqam)
-                if (digits.startsWith("998")) {
-                    digits = digits.slice(3); // "+998" ni saqlash
+                                </div>
+                                <!-- Add Pagination -->
+                                <div class="swiper-pagination"></div>
+                                <!-- Add Navigation -->
+                                <div class="swiper-navigation">
+                                    <div class="swiper-button-next"></div>
+                                    <div class="swiper-button-prev"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 offset-lg-1 col-md-12">
+                        <div class="d-flex mb-4">
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     width="16" height="16"
+                                     fill="currentColor"
+                                     class="bi bi-geo-alt-fill"
+                                     viewBox="0 0 16 16">
+                                    <path
+                                        d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                                </svg>
+                            </div>
+                            <div class="ms-2">
+                                <h5 class="mb-0">Address:</h5>
+                                <small>{{$contact->address}}</small>
+                            </div>
+                        </div>
+                        <div class="d-flex mb-4">
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     width="16" height="16"
+                                     fill="currentColor"
+                                     class="bi bi-telephone"
+                                     viewBox="0 0 16 16">
+                                    <path
+                                        d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>
+                                </svg>
+                            </div>
+                            <div class="ms-2">
+                                <h5 class="mb-0">Phone:</h5>
+                                <small>
+                                    <a href="tel:{{$contact->number_1}}"
+                                       class="text-reset">{{$contact->number_1}}</a>
+                                    <span class="ms-lg-3"><a href="tel:{{$contact->number_2}}"
+                                                             class="text-reset">{{$contact->number_2}}</a></span>
+                                </small>
+                            </div>
+                        </div>
+                        <div class="d-flex mb-4">
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     width="16" height="16"
+                                     fill="currentColor"
+                                     class="bi bi-envelope-check"
+                                     viewBox="0 0 16 16">
+                                    <path
+                                        d="M2 2a2 2 0 0 0-2 2v8.01A2 2 0 0 0 2 14h5.5a.5.5 0 0 0 0-1H2a1 1 0 0 1-.966-.741l5.64-3.471L8 9.583l7-4.2V8.5a.5.5 0 0 0 1 0V4a2 2 0 0 0-2-2H2Zm3.708 6.208L1 11.105V5.383l4.708 2.825ZM1 4.217V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v.217l-7 4.2-7-4.2Z"/>
+                                    <path
+                                        d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-1.993-1.679a.5.5 0 0 0-.686.172l-1.17 1.95-.547-.547a.5.5 0 0 0-.708.708l.774.773a.75.75 0 0 0 1.174-.144l1.335-2.226a.5.5 0 0 0-.172-.686Z"/>
+                                </svg>
+                            </div>
+                            <div class="ms-2">
+                                <h5 class="mb-0">E-mail:</h5>
+
+                                <small>
+                                    <a href="emailto:{{$contact->email_1}}"
+                                       class="text-reset">{{$contact->email_1}}</a>
+                                    <span class="ms-lg-3"><a href="emailto:{{$contact->email_2}}"
+                                                             class="text-reset">{{$contact->email_2}}</a></span>
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 order-2">
+                        <div class="mb-6 mt-4">
+                            <h2 class="mb-4">About</h2>
+                            <p class="mb-3">
+                                {!! $room->description !!}</p>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-12  col-md-12 order-lg-2">
+
+                        @auth
+                            <div class="card shadow-sm">
+                                <div class="card-body">
+                                    <div class="mb-6 text-center">
+                                        <h3 class="mb-0">Book</h3>
+                                    </div>
+                                    <form action="{{route('bookingAll', [app()->getLocale()])}}" method="POST" class="row g-3 needs-validation" novalidate="">
+                                        @csrf
+                                        <div class="col-md-6">
+                                            <label for="arrivalDate" class="form-label">Kelish sanasi</label>
+                                            <input type="date" name="start_date" class="form-control input-date-formatting"
+                                                   id="arrivalDate"
+                                                   placeholder="YYYY-MM-DD" required/>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="departureDate" class="form-label">Chiqish sanasi</label>
+                                            <input type="date" name="end_date" class="form-control input-date-formatting"
+                                                   id="departureDate"
+                                                   placeholder="YYYY-MM-DD" required/>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label">Room</label>
+                                            <span class="form-control-plaintext">{{$room->title}}</span>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label" for="adults">Adults</label>
+                                            <input type="number" name="adults" id="adults" class="form-control" min="1"
+                                                   placeholder="1">
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class="form-label" for="children">Children</label>
+                                            <input type="number" name="children" id="children" class="form-control" placeholder="0"
+                                                   min="0">
+                                        </div>
+
+                                        <div id="error-message" class="text-danger" style="display: none;">
+                                            Yig'indi xonada mavjud bo'lgan yotoqlar sonidan oshib ketmasligi kerak.
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="type" value="1"
+                                                       id="guestCheckbox" required>
+                                                <label class="form-check-label" for="guestCheckbox">
+                                                    Mehmonlar uchun
+                                                </label>
+                                                <div class="invalid-feedback">
+                                                    You must agree before submitting.
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div id="guestFields" style="display: none;">
+                                            <div class="row">
+                                                @foreach(range(1, $room->bed_qty) as $index)
+                                                    <div class="col-md-6">
+                                                        <label class="form-label"
+                                                               for="guest_name_{{ $index }}">Ismi {{$index}}</label>
+                                                        <input type="text" class="form-control"
+                                                               id="guest_name_{{ $index }}"
+                                                               name="name[{{ $index }}]"
+                                                               placeholder="Ismi va familiyasi">
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label class="form-label"
+                                                               for="guest_age_{{ $index }}">Yoshi {{$index}}</label>
+                                                        <input type="number" class="form-control"
+                                                               id="guest_age_{{ $index }}"
+                                                               name="age[{{ $index }}]" min="1"
+                                                               placeholder="Yoshini kiriting">
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label"><span>Total price</span></label>
+                                            <span class="form-control-plaintext" id="totalPrice">0</span>
+                                        </div>
+                                        <div class="col-md-4 mt-8">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value=""
+                                                       id="flexCheckDefault" checked>
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                    Borganda To'lash
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 mt-8">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDef" >
+                                                <label class="form-check-label"  for="flexCheckDef">
+                                                    Kartadan to'lash
+                                                </label>
+                                            </div>
+
+                                            <div class="toast-container position-fixed bottom-0 end-0 p-3">
+                                                <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                                                    <div class="toast-header">
+                                                        <svg class="bd-placeholder-img rounded me-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg"
+                                                             preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
+                                                            <rect width="100%" height="100%" fill="var(--bs-primary)"></rect>
+                                                        </svg>
+                                                        <strong class="me-auto">Bu funksiya yaqinda qo'shiladi</strong>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="toast-body">
+                                                        Bu funksiya tez orada qo'shiladi.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <input type="number" hidden name="day" id="dayInput" >
+                                            <input type="number" hidden name="total_amount" id="TotalAmount" >
+                                            <input type="number" hidden name="room_id" value="{{$room->id}}">
+                                            <input type="number" hidden name="user_id" value="{{auth()->user()->id}}">
+
+                                            <script>
+                                                document.getElementById('flexCheckDef').addEventListener('click', function (e) {
+                                                    // Belgilashni oldini olish
+                                                    e.preventDefault();
+
+                                                    // Toastni ko‘rsatish
+                                                    const toastElement = document.getElementById('liveToast');
+                                                    const toast = new bootstrap.Toast(toastElement);
+                                                    toast.show();
+                                                });
+                                            </script>
+
+                                        </div>
+                                        <div class="col-md-4 mt-8">
+                                        <button type="submit" class="btn btn-outline-info">Buyurtma berish</button>
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+
+                        @else
+                            <div class="card shadow-sm">
+                                <div class="card-body">
+                                    <div class="mb-6 text-center">
+                                        <h3 class="mb-0">Register</h3>
+                                    </div>
+                                    <form class="row g-3 needs-validation" novalidate="">
+                                        <div class="col-md-6">
+                                            <label for="eventSingleNameInput" class="form-label">
+                                                First Name
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="text" class="form-control" id="eventSingleNameInput"
+                                                   required="">
+                                            <div class="invalid-feedback">Please enter first name.</div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="eventSingleLastNameInput" class="form-label">
+                                                Last Name
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="text" class="form-control" id="eventSingleLastNameInput"
+                                                   required="">
+                                            <div class="invalid-feedback">Please enter last name.</div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="eventSingleEmailInput" class="form-label">
+                                                Email
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="email" class="form-control" id="eventSingleEmailInput"
+                                                   required="">
+                                            <div class="invalid-feedback">Please enter email.</div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="eventSinglePhoneInput" class="form-label">
+                                                Phone Number
+                                                <span class="text-body">(optional)</span>
+                                            </label>
+                                            <input type="tel" class="form-control" id="eventSinglePhoneInput">
+                                            <div class="invalid-feedback">Please enter phone.</div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="blockCheck"
+                                                       required="">
+                                                <label class="form-check-label ms-2 fs-6" for="blockCheck">
+                                                    By continuing, you agree to Black
+                                                    <a href="#">Terms of Use</a>
+                                                    Read our
+                                                    <a href="#">Privacy Policy</a>
+                                                </label>
+                                                <div class="invalid-feedback">You must agree before submitting.</div>
+                                            </div>
+                                        </div>
+                                        <div class="d-grid">
+                                            <button class="btn btn-primary" type="submit">Submit</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        @endauth
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--Digital experience end-->
+
+    </main>
+    <script>
+        document.getElementById('adults').addEventListener('input', validateRooms);
+        document.getElementById('children').addEventListener('input', validateRooms);
+
+        function validateRooms() {
+            let adults = parseInt(document.getElementById('adults').value) || 1;
+            let children = parseInt(document.getElementById('children').value) || 0;
+            let totalPeople = adults + children;
+
+            let bedQty = {{$room->bed_qty}};
+
+            if (totalPeople > bedQty) {
+                document.getElementById('error-message').style.display = 'block';
+            } else {
+                document.getElementById('error-message').style.display = 'none';
+            }
+        }
+
+        document.getElementById('guestCheckbox').addEventListener('change', function () {
+            var guestFields = document.getElementById('guestFields');
+
+            if (this.checked) {
+                guestFields.style.display = 'block';
+            } else {
+                guestFields.style.display = 'none';
+            }
+        });
+        document.addEventListener("DOMContentLoaded", () => {
+            const roomPrice = {{$room->price}}; // PHP orqali narxni olamiz
+            const arrivalInput = document.getElementById("arrivalDate");
+            const departureInput = document.getElementById("departureDate");
+            const totalPriceSpan = document.getElementById("totalPrice");
+
+            function calculateTotalPrice() {
+                const arrivalDate = new Date(arrivalInput.value);
+                const departureDate = new Date(departureInput.value);
+
+                if (arrivalDate && departureDate && departureDate > arrivalDate) {
+                    const differenceInTime = departureDate - arrivalDate;
+                    const differenceInDays = Math.ceil(differenceInTime / (1000 * 60 * 60 * 24));
+                    const totalPrice = differenceInDays * roomPrice;
+                    totalPriceSpan.textContent = `${totalPrice} so'm`;
+                    document.getElementById("dayInput").value = differenceInDays;
+                    document.getElementById("TotalAmount").value = totalPrice;
                 } else {
-                    digits = digits.replace(/^998/, ""); // Agar foydalanuvchi 998 ni noto'g'ri joylashtirsa
+                    totalPriceSpan.textContent = "0 so'm";
                 }
-                digits = digits.substring(0, 9); // Maksimal 9 ta raqam
+            }
 
-                // Formatlash: "(98) 457-25-19"
-                let formatted = "+998";
-                if (digits.length > 0) {
-                    formatted += ` (${digits.substring(0, 2)}`;
-                }
-                if (digits.length > 2) {
-                    formatted += `) ${digits.substring(2, 5)}`;
-                }
-                if (digits.length > 5) {
-                    formatted += `-${digits.substring(5, 7)}`;
-                }
-                if (digits.length > 7) {
-                    formatted += `-${digits.substring(7, 9)}`;
-                }
+            arrivalInput.addEventListener("input", calculateTotalPrice);
+            departureInput.addEventListener("input", calculateTotalPrice);
+        });
 
-                // Formatni qo'llash
-                phoneInput.value = formatted;
-            });
-
-
-        </script>
-
-    </div>
-</x-layouts.frontend>
+    </script>
+@endsection

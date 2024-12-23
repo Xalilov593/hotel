@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\About;
 use App\Models\Banner;
 use App\Models\Contact;
 use App\Models\Room;
+use App\Models\Type;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -15,17 +17,24 @@ class PageController extends Controller
         $rooms=Room::latest()->take(4)->get();
         $banner=Banner::latest()->first();
         $images = $banner->getMedia('banner-images');
-        return view('frontend.home', compact('banner', 'images', 'rooms', 'lang'));
+        $icons=Type::all();
+        $contact = Contact::where('lang', $lang)->first();
+        $about=About::latest()->first();
+        $aboutImages = $about->getMedia('about-images');
+        return view('frontend.home', compact('banner', 'images', 'rooms', 'lang', 'icons', 'contact', 'about', 'aboutImages'));
     }
 
-    public function about()
+    public function about($lang)
     {
-        return view('frontend.about');
+        $about=About::latest()->first();
+        $aboutImages = $about->getMedia('about-images');
+        return view('frontend.about', compact('about', 'lang', 'aboutImages'));
     }
 
     public function rooms()
     {
         $rooms=Room::latest()->take(4)->get();
+
         return view('frontend.room', compact('rooms')   );
     }
 
@@ -53,7 +62,8 @@ class PageController extends Controller
 
     public function roomDetail($lang, $id)
     {
+        $contact=Contact::latest()->first();
         $room=Room::findOrFail($id);
-        return view('frontend.room-details', compact('room', 'lang'));
+        return view('frontend.room-details', compact('room', 'lang', 'contact'));
     }
 }

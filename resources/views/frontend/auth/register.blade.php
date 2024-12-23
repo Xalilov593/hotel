@@ -1,128 +1,159 @@
-<x-layouts.frontend>
-
-    <!-- Title Banner Start -->
-    <section class="title-banner">
-        <div class="container-fluid">
-            <div class="content">
-                <div class="title-block">
-                    <div class="title">
-                        <h2 class="h-69">Register</h2>
+@extends('frontend.auth.components.auth')
+@section('auth')
+<main class="position-relative">
+    <div class="pattern-square"></div>
+    <!--Pageheader start-->
+    <section class="py-5 py-lg-8">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-4 offset-xl-4 col-md-12 col-12">
+                    <div class="text-center">
+                        <a href="{{route('home' , app()->getLocale())}}"><img src="/css/filament/logo.png" style="width: 300px" alt="brand" class="mb-3"></a>
+                        <h1 class="mb-1">Register</h1>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- Title Banner End -->
-
-    <!-- Start Page Content -->
-    <div class="page-content">
-
-        <!-- Booking Section Start -->
-        <section class="booking">
-            <div class="container-fluid">
-                <div class="booking-wrapper">
-                    <div class="row">
-
-                        <div class="offset-xl-2 col-xl-8">
-                            <div class="booking-text mb-48">
-                                <h3 class="h-31 light-black mb-16">Create Your Account</h3>
-                                <p class="h-18 dark-gray">Join us today unlock exclusive offers and benefits.</p>
-                            </div>
-                            <form action="{{route('registerPost', app()->getLocale())}}" method="POST" class=" form-validate mb-48">
+    <!--Pageheader end-->
+    <!--Sign up start-->
+    <section>
+        <div class="container">
+            <div class="row justify-content-center mb-6">
+                <div class="col-xl-5 col-lg-6 col-md-8 col-12">
+                    <div class="card shadow-sm mb-3">
+                        <div class="card-body">
+                            <form class="needs-validation mb-6" novalidate="" action="{{route('registerPost', app()->getLocale())}}" method="POST">
                                 @csrf
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="mb-24">
-                                                    <input type="text" id="f-name" name="name" class="form-control"
-                                                           placeholder="First Name" required="">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="mb-24">
-                                                    <input type="email" id="e_mail" name="email" class="form-control"
-                                                           placeholder="email@example.com" required="">
-                                                </div>
-                                            </div>
-                                        </div>
+                                <div class="mb-3">
+                                    <label for="signupFullnameInput" class="form-label">Full Name</label>
+                                    <input type="text" class="form-control" id="signupFullnameInput" name="name" required="" placeholder="Ismingizni kiriting">
+                                    <div class="invalid-feedback">Please enter full name</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="email">Email</label>
+                                    <input type="email" id="email" name="email" class="form-control" placeholder="email@example.com">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="phone" class="form-label">Phone number</label>
+                                    <input type="text" name="phone" class="form-control input-phone" id="phone" placeholder="+998XX XXX XXXX" required="" />
+                                </div>
+                                <div class="mb-3">
+                                    <label for="formSignUpPassword" class="form-label">Password</label>
+                                    <div class="password-field position-relative">
+                                        <input name="password" type="password" class="form-control fakePassword" id="formSignUpPassword" required="">
+                                        <span><i class="bi bi-eye-slash passwordToggler"></i></span>
+                                        <div class="invalid-feedback">Please enter password.</div>
                                     </div>
-                                    <div class="col-lg-6">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="mb-24">
-                                                    <input name="phone" class="form-control" id="phone-form-control" placeholder="+998 (__) ___-__-__" type="tel" value="+998">
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-12">
-                                                <div class="password-block mb-24">
-                                                    <i class="fas fa-eye-slash" id="eye"></i>
-                                                    <input type="password" class="form-control password-input"
-                                                           id="passWord" name="password" placeholder="••••••••"
-                                                           required="">
-                                                </div>
-                                            </div>
-
-                                        </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="formSignUpConfirmPassword" class="form-label">Confirm Password</label>
+                                    <div class="password-field position-relative">
+                                        <input name="password_confirmation" type="password" class="form-control fakePassword" id="formSignUpConfirmPassword" required="">
+                                        <span><i class="bi bi-eye-slash passwordToggler"></i></span>
+                                        <div class="invalid-feedback">Please enter password.</div>
                                     </div>
-                                    <div class="col-md-12">
-                                        <button type="submit" class="cus-btn booking-btn w-100 mb-32">Register</button>
-                                        <div class="text-end">
-                                            <p class="h-18 light-black">Already have an account?<a href="{{route('login', app()->getLocale())}}"
-                                                                                                   class="color-primary text-decoration-underline">&nbsp;Signin</a>
-                                            </p>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="mb-4 d-flex align-items-center justify-content-between">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="signupCheckTextCheckbox">
+                                            <label class="form-check-label ms-2" for="signupCheckTextCheckbox">
+                                                <a href="#">Terms of Use</a>
+                                                &
+                                                <a href="#">Privacy Policy</a>
+                                            </label>
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="d-grid">
+                                    <button class="btn btn-primary" type="submit">Sign Up</button>
+                                </div>
                             </form>
+
+                            <span>Sign up with your social network.</span>
+                            <div class="d-grid mt-3">
+                                <a href="#" class="btn btn-google">
+                              <span class="me-2">
+                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-google" viewbox="0 0 16 16">
+                                    <path d="M15.545 6.558a9.42 9.42 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.689 7.689 0 0 1 5.352 2.082l-2.284 2.284A4.347 4.347 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.792 4.792 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.702 3.702 0 0 0 1.599-2.431H8v-3.08h7.545z"></path>
+                                 </svg>
+                              </span>
+                                    Continue with Google
+                                </a>
+                            </div>
+                            <div class="d-grid mt-2">
+                                <a href="#" class="btn btn-facebook">
+                              <span class="me-2">
+                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-facebook" viewbox="0 0 16 16">
+                                    <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"></path>
+                                 </svg>
+                              </span>
+                                    Continue with Facebook
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="room-bottom-shapes">
-                    <div class="shape-right text-end">
-                    </div>
-                    <div class="shape-left">
-                    </div>
+
+                    <span>
+                     Already have an account?
+                     <a href="{{route('login', app()->getLocale())}}" class="text-primary">Sign in here.</a>
+                  </span>
                 </div>
             </div>
-        </section>
-        <!-- Booking Section End -->
+
+        </div>
+    </section>
+    <!--Sign up end-->
+    <div class="position-absolute end-0 bottom-0 m-4">
+        <div class="dropdown">
+            <button class="btn btn-light btn-icon rounded-circle d-flex align-items-center" type="button" aria-expanded="false" data-bs-toggle="dropdown" aria-label="Toggle theme (auto)">
+                <i class="bi theme-icon-active"></i>
+                <span class="visually-hidden bs-theme-text">Toggle theme</span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="bs-theme-text">
+                <li>
+                    <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">
+                        <i class="bi theme-icon bi-sun-fill"></i>
+                        <span class="ms-2">Light</span>
+                    </button>
+                </li>
+                <li>
+                    <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
+                        <i class="bi theme-icon bi-moon-stars-fill"></i>
+                        <span class="ms-2">Dark</span>
+                    </button>
+                </li>
+                <li>
+                    <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="auto" aria-pressed="true">
+                        <i class="bi theme-icon bi-circle-half"></i>
+                        <span class="ms-2">Auto</span>
+                    </button>
+                </li>
+            </ul>
+        </div>
     </div>
+</main>
     <script>
-        document.getElementById("phone-form-control").addEventListener("input", function (event) {
-            const phoneInput = event.target;
+        document.getElementById('phone').addEventListener('input', function (e) {
+            let input = e.target.value.replace(/\D/g, ''); // Faqat raqamlarni oling
+            let formattedInput = '';
 
-            // Faqat raqamlarni olib qolish
-            let digits = phoneInput.value.replace(/\D/g, "");
-
-            // Raqamlarning uzunligini cheklash (faqat 9 ta raqam)
-            if (digits.startsWith("998")) {
-                digits = digits.slice(3); // "+998" ni saqlash
+            if (input.startsWith('998')) {
+                formattedInput = '+' + input.substring(0, 3) + ' ';
+                if (input.length > 3) formattedInput += input.substring(3, 5) + ' ';
+                if (input.length > 5) formattedInput += input.substring(5, 8) + ' ';
+                if (input.length > 8) formattedInput += input.substring(8, 12);
             } else {
-                digits = digits.replace(/^998/, ""); // Agar foydalanuvchi 998 ni noto'g'ri joylashtirsa
-            }
-            digits = digits.substring(0, 9); // Maksimal 9 ta raqam
-
-            // Formatlash: "(98) 457-25-19"
-            let formatted = "+998";
-            if (digits.length > 0) {
-                formatted += ` (${digits.substring(0, 2)}`;
-            }
-            if (digits.length > 2) {
-                formatted += `) ${digits.substring(2, 5)}`;
-            }
-            if (digits.length > 5) {
-                formatted += `-${digits.substring(5, 7)}`;
-            }
-            if (digits.length > 7) {
-                formatted += `-${digits.substring(7, 9)}`;
+                formattedInput = '+998 ';
+                if (input.length > 0) formattedInput += input.substring(0, 2) + ' ';
+                if (input.length > 2) formattedInput += input.substring(2, 5) + ' ';
+                if (input.length > 5) formattedInput += input.substring(5, 8);
             }
 
-            // Formatni qo'llash
-            phoneInput.value = formatted;
+            e.target.value = formattedInput.trim(); // Formatlangan qiymatni qaytaring
         });
 
     </script>
-</x-layouts.frontend>
-
+@endsection
